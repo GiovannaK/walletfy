@@ -10,7 +10,7 @@ export const TopBar = () => {
       style={styles.container}
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{paddingRight: 25}}
+      contentContainerStyle={{paddingRight: 20}}
     >
       <Category />
     </ScrollView>
