@@ -12,11 +12,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   image: {
+    marginTop: 10,
     maxWidth: 120,
     maxHeight: 43,
   },
   greetings: {
-    color: '#ffffff',
+    marginTop: 10,
+    color: theme.colors.primary,
     fontSize: 20,
   }
 })

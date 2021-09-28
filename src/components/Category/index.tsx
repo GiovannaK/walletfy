@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ScrollView, Image } from 'react-native'
+import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native'
 import {styles} from './styles';
 import Expense from '../../../assets/expense.png';
 import Earning from '../../../assets/earning.png';
@@ -12,27 +12,30 @@ export const Category = () => {
     <View
       style={styles.container}
     >
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} activeOpacity={0.7}>
         <Image
           source={Expense}
           style={styles.image}
           resizeMode="stretch"
         />
-      </View>
-      <View style={styles.card}>
+        <Text style={styles.text}>Gastos</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.card} activeOpacity={0.7}>
         <Image
           source={Earning}
           style={styles.image}
           resizeMode="stretch"
         />
-      </View>
-      <View style={styles.card}>
+        <Text style={styles.text}>Ganhos</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.card} activeOpacity={0.7}>
         <Image
           source={Report}
           style={styles.image}
           resizeMode="stretch"
         />
-      </View>
+        <Text style={styles.text}>Relatórios</Text>
+      </TouchableOpacity>
     </View>
   )
 }

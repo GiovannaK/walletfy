@@ -20,5 +20,9 @@ export const styles = StyleSheet.create({
     maxWidth: 75,
     maxHeight: 73,
     marginTop: 3,
+  },
+  text: {
+    marginTop: 10,
+    color: theme.colors.primary,
   }
 })
