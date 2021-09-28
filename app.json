@@ -1,5 +1,6 @@
 {
   "expo": {
+    "userInterfaceStyle": "automatic",
     "name": "walletfy",
     "slug": "walletfy",
     "version": "1.0.0",

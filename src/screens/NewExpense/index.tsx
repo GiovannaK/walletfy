@@ -1,27 +1,27 @@
 import React, {useState} from 'react'
-import { Text, View, TextInput, Platform } from 'react-native'
+import { Text, View, TextInput, Platform, TouchableOpacity } from 'react-native'
 import { FormHeader } from '../../components/formHeader';
 import { styles } from './styles';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { FontAwesome } from '@expo/vector-icons';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { format } from 'date-fns'
+
 
 export const NewExpense = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  const onChange = (event: any, selectedDate: Date) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [dateInput, setDateInput] = useState('')
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
   };
 
-  const showMode = (currentMode: any) => {
-    setShow(true);
-    setMode(currentMode);
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
   };
 
-  const showDatepicker = () => {
-    showMode('date');
+  const handleConfirm = (date: any) => {
+    const formattedDate = format(date, 'dd/MM/yyyy')
+    setDateInput(formattedDate)
+    hideDatePicker();
   };
 
   return (
@@ -39,14 +39,24 @@ export const NewExpense = () => {
           placeholder="Valor - EX: 300.00"
           placeholderTextColor="#989898"
         />
-        <TextInput
-          style={styles.inputDate}
-          keyboardType="numeric"
-          placeholder="Data - DD/MM/YYYY"
-          placeholderTextColor="#989898"
-
-        />
+        <View style={styles.dateContainer}>
+          <TextInput
+            style={styles.inputDate}
+            placeholder="Data - DD/MM/YYYY"
+            placeholderTextColor="#989898"
+            value={dateInput}
+          />
+          <TouchableOpacity style={styles.iconWrapper} onPress={showDatePicker}>
+            <FontAwesome name="calendar" size={40} style={styles.icon}/>
+          </TouchableOpacity>
+        </View>
       </View>
+      <DateTimePickerModal
+        onConfirm={handleConfirm}
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onCancel={hideDatePicker}
+      />
     </View>
   )
 }
