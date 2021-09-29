@@ -7,10 +7,14 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from 'date-fns'
 import {Picker} from '@react-native-picker/picker';
 import { categories } from '../../utils/categories';
+import Checkbox from 'expo-checkbox';
+import { theme } from '../../global/styles/theme';
 
 export const NewExpense = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateInput, setDateInput] = useState('')
+  const [isMonthly, setIsMonthly] = useState(false)
+
   const [category, setCategory] = useState()
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -65,6 +69,18 @@ export const NewExpense = () => {
             })
           }
         </Picker>
+        <View style={styles.checkWrapper}>
+          <Text style={styles.checkLabel}>Gasto Mensal</Text>
+          <Checkbox
+            style={styles.checkbox}
+            value={isMonthly}
+            onValueChange={setIsMonthly}
+            color={theme.colors.primary}
+          />
+        </View>
+        <TouchableOpacity style={styles.saveButton} activeOpacity={0.7}>
+          <Text style={styles.saveButtonText}>Salvar</Text>
+        </TouchableOpacity>
       </View>
       <DateTimePickerModal
         onConfirm={handleConfirm}
