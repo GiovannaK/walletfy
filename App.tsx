@@ -5,6 +5,7 @@ import { DashBoard } from './src/screens/DashBoard';
 import { NewExpense } from './src/screens/NewExpense';
 import { NewEarning } from './src/screens/NewEarning';
 import { UpdateExpense } from './src/screens/UpdateExpense';
+import { UpdateEarning } from './src/screens/UpdateEarning';
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <UpdateExpense />
+      <UpdateEarning />
     </>
   );
 }
