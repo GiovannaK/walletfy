@@ -79,7 +79,7 @@ export const UpdateEarning = () => {
           />
         </View>
         <TouchableOpacity style={styles.saveButton} activeOpacity={0.7}>
-          <Text style={styles.saveButtonText}>Salvar</Text>
+          <Text style={styles.saveButtonText}>Atualizar</Text>
         </TouchableOpacity>
       </View>
       <DateTimePickerModal
