@@ -43,5 +43,22 @@ export const styles = StyleSheet.create({
   },
   icon: {
     color: theme.colors.primary
+  },
+  category: {
+    color: '#989898',
+    marginTop: 40,
+    marginLeft: 25,
+    fontSize: 18,
+  },
+  select: {
+    width:"90%",
+    padding:10,
+    height:50,
+    borderBottomWidth: 1,
+    borderBottomColor:theme.colors.primary,
+    marginLeft:"auto",
+    marginRight:"auto",
+    color: theme.colors.primary,
+    fontSize: 18,
   }
 })

@@ -1,15 +1,17 @@
 import React, {useState} from 'react'
-import { Text, View, TextInput, Platform, TouchableOpacity } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 import { FormHeader } from '../../components/formHeader';
 import { styles } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from 'date-fns'
-
+import {Picker} from '@react-native-picker/picker';
+import { categories } from '../../utils/categories';
 
 export const NewExpense = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateInput, setDateInput] = useState('')
+  const [category, setCategory] = useState()
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -50,6 +52,19 @@ export const NewExpense = () => {
             <FontAwesome name="calendar" size={40} style={styles.icon}/>
           </TouchableOpacity>
         </View>
+        <Text style={styles.category}>Selecione uma categoria</Text>
+        <Picker
+          style={styles.select}
+          selectedValue={category}
+          onValueChange={(itemValue) =>
+            setCategory(itemValue)
+          }>
+          {
+            categories.map((cat) => {
+              return <Picker.Item key={cat.id} label={cat.name} value={cat.id} />
+            })
+          }
+        </Picker>
       </View>
       <DateTimePickerModal
         onConfirm={handleConfirm}
