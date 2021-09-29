@@ -4,6 +4,7 @@ import {StatusBar} from 'react-native'
 import { DashBoard } from './src/screens/DashBoard';
 import { NewExpense } from './src/screens/NewExpense';
 import { NewEarning } from './src/screens/NewEarning';
+import { UpdateExpense } from './src/screens/UpdateExpense';
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <NewEarning />
+      <UpdateExpense />
     </>
   );
 }
