@@ -3,6 +3,7 @@ import { Login } from './src/screens/Login';
 import {StatusBar} from 'react-native'
 import { DashBoard } from './src/screens/DashBoard';
 import { NewExpense } from './src/screens/NewExpense';
+import { NewEarning } from './src/screens/NewEarning';
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <NewExpense />
+      <NewEarning />
     </>
   );
 }
