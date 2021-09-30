@@ -3,12 +3,11 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import { styles } from './styles'
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
 type Props = {
   color: string
 }
 
-export const Card = ({color}: Props) => {
+export const CardEarning = ({color}: Props) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -23,7 +22,7 @@ export const Card = ({color}: Props) => {
           }}>R$ 200</Text>
           <Text style={styles.category}>Categoria</Text>
           <Text style={styles.month}>Mensal</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("UpdateExpense" as never)}>
+          <TouchableOpacity onPress={() => navigation.navigate("UpdateEarning" as never)}>
             <FontAwesome name="edit" size={40} style={styles.icon}/>
           </TouchableOpacity>
         </View>

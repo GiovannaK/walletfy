@@ -1,13 +1,15 @@
 import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../../components/Header'
 import { styles } from './styles'
 import { FontAwesome } from '@expo/vector-icons';
 import { Card } from '../../components/Card';
 import { theme } from '../../global/styles/theme';
 import { expenses } from '../../utils/expenses';
+import { useNavigation } from '@react-navigation/native';
 
 export const Expenses = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Header />
@@ -30,6 +32,9 @@ export const Expenses = () => {
         data={expenses}
         renderItem={({item}) => <Card color={theme.colors.expenses}/>}
       />
+      <TouchableOpacity style={styles.delete} onPress={() => navigation.navigate("NewExpense" as never)}>
+        <FontAwesome name="plus" style={styles.iconButton} size={40}/>
+      </TouchableOpacity>
     </View>
   )
 }

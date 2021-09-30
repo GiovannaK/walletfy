@@ -49,5 +49,21 @@ export const styles = StyleSheet.create({
     color: theme.colors.expenses,
     marginTop: 20,
     fontSize: 18
+  },
+  delete: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    bottom: 25,
+    right: 20,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  iconButton: {
+    color: '#fff',
+    fontSize: 27,
+    fontWeight: 'bold',
   }
 })

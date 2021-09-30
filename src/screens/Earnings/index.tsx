@@ -1,13 +1,16 @@
 import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../../components/Header'
 import { styles } from './styles'
 import { FontAwesome } from '@expo/vector-icons';
 import { Card } from '../../components/Card';
 import { theme } from '../../global/styles/theme';
-import { expenses } from '../../utils/expenses';
+import { earnings } from '../../utils/expenses';
+import { useNavigation } from '@react-navigation/native';
+import { CardEarning } from '../../components/CardEarning';
 
 export const Earnings = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Header />
@@ -27,9 +30,12 @@ export const Earnings = () => {
       </View>
       <FlatList
         keyExtractor={(index: any, item: any) => item.id}
-        data={expenses}
-        renderItem={({item}) => <Card color={theme.colors.primary}/>}
+        data={earnings}
+        renderItem={({item}) => <CardEarning color={theme.colors.primary}/>}
       />
+      <TouchableOpacity style={styles.delete} onPress={() => navigation.navigate("NewEarning" as never)}>
+        <FontAwesome name="plus" style={styles.iconButton} size={40}/>
+      </TouchableOpacity>
     </View>
   )
 }
