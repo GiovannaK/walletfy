@@ -16,3 +16,12 @@ export const expenses = [
     mensal: false
   }
 ]
+
+export type ExpensesType = {
+  id: number,
+  title: string,
+  date: string,
+  amount: string,
+  category: string,
+  mensal: boolean
+}

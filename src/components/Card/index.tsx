@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { styles } from './styles'
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -21,7 +21,9 @@ export const Card = ({color}: Props) => {
           }}>R$ 200</Text>
           <Text style={styles.category}>Categoria</Text>
           <Text style={styles.month}>Mensal</Text>
-          <FontAwesome name="edit" size={40} style={styles.icon}/>
+          <TouchableOpacity>
+            <FontAwesome name="edit" size={40} style={styles.icon}/>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
