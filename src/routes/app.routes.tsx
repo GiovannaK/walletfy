@@ -11,6 +11,7 @@ import { UpdateExpense } from '../screens/UpdateExpense';
 
 
 export type AppRouteType = {
+  Login: undefined,
   Dashboard: undefined,
   Expenses: undefined,
   Earnings: undefined,
@@ -25,11 +26,12 @@ const stack = createStackNavigator<AppRouteType>();
 export const AppRoutes = () => {
   return (
     <stack.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false
       }}
     >
+      <stack.Screen name="Login" component={Login} />
       <stack.Screen name="Dashboard" component={DashBoard} />
       <stack.Screen name="Expenses" component={Expenses} />
       <stack.Screen name="Earnings" component={Earnings} />
