@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
+import { Text, View, Image, TextInput, TouchableOpacity} from 'react-native'
 import { styles } from './styles'
 import horizontalLogo from '../../../assets/horizontal_logo.png';
 import LoginImage from '../../../assets/loginImage.svg';
