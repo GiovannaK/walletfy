@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
 import horizontalLogo from '../../../assets/horizontal_logo.png';
 import LoginImage from '../../../assets/loginImage.svg';
@@ -21,7 +21,7 @@ export const Login = () => {
             <FontAwesome style={styles.icon} name="google" size={40}/>
           </View>
           <Text style={styles.googleBtnText}>
-            Entrar com Google
+            Login com Google
           </Text>
         </TouchableOpacity>
       </View>

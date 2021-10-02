@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg
   },
   image: {
-    marginTop: 58
+    marginTop: 30
   },
   border: {
-    marginTop: 45,
+    marginTop: 30,
     minHeight: '100%',
     flex: 1,
     alignItems: 'center',
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   googleBtn: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 80,
+    marginTop: 30,
     width: 320,
     backgroundColor: theme.colors.google,
     height: 60,
@@ -39,6 +39,13 @@ export const styles = StyleSheet.create({
   },
   googleBtnText: {
     color: '#ffffff',
-    fontSize: 20
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  input: {
+    marginTop: 30,
+    width: '90%',
+    padding: 10,
+    height: 50,
   }
 })
