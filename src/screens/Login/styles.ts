@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg
   },
   image: {
-    marginTop: 30
+    marginTop: 50
   },
   border: {
     marginTop: 30,
@@ -20,32 +20,44 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
   svg: {
-    maxWidth: 322,
-    maxHeight: 198,
-    marginTop: 60,
+    maxWidth: 300,
+    maxHeight: 120,
+    marginTop: 30,
   },
   googleBtn: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 100,
+    marginTop: 30,
     width: 320,
-    backgroundColor: theme.colors.google,
+    backgroundColor: theme.colors.bg,
     height: 60,
-    borderRadius: 15,
+    borderRadius: 20,
     justifyContent: 'space-around',
   },
   icon: {
     color: '#ffffff',
   },
   googleBtnText: {
-    color: '#ffffff',
+    color: theme.colors.primary,
     fontSize: 20,
     fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
   input: {
-    marginTop: 30,
     width: '90%',
-    padding: 10,
+    marginTop: 30,
+    padding: 15,
     height: 50,
+    backgroundColor: theme.colors.bg,
+    borderRadius: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    color: '#ffffff',
+  },
+  linkContainer: {
+    marginTop: 10,
+  },
+  link: {
+    fontSize: 17,
   }
 })
