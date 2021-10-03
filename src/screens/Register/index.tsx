@@ -1,22 +1,23 @@
-import React from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity, Alert} from 'react-native'
+import React, {useEffect} from 'react'
+import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
-import { useNavigation } from '@react-navigation/native';
-import horizontalLogo from '../../../assets/horizontal_logo.png';
-import LoginImage from '../../../assets/loginImage.svg';
 import { supabase } from '../../config/supabase';
+import LoginImage from '../../../assets/loginImage.svg';
+import horizontalLogo from '../../../assets/horizontal_logo.png';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { theme } from '../../global/styles/theme';
 import { errorStyle } from '../../global/styles/error';
 import {Controller, useForm} from 'react-hook-form'
 import { EMAIL_REGEX } from '../../utils/regex';
+import { useNavigation } from '@react-navigation/native';
 
 type LoginTypes = {
+  username: string,
   email: string,
   password: string,
 }
 
-export const Login = () => {
+export const Register = () => {
   const navigation = useNavigation();
   const {handleSubmit, control,
     formState: {errors, isValid},
@@ -37,6 +38,33 @@ export const Login = () => {
 
         <View style={styles.border}>
           <LoginImage style={styles.svg}/>
+          <Controller
+            control={control}
+            name="username"
+            render={({field: {onChange, value, onBlur}}) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Nome de usuário"
+                placeholderTextColor={theme.colors.primary}
+                value={value}
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+              />
+            )}
+            rules={{
+              required: {
+                value: true,
+                message: 'Nome de usuário não pode estar vazio'
+              },
+              maxLength: {
+                value: 200,
+                message: 'Nome de usuário ter até 200 caracteres'
+              }
+            }}
+          />
+          <Text style={errorStyle.formError}>
+            {errors.username?.message}
+          </Text>
           <Controller
             control={control}
             name="email"
@@ -101,14 +129,15 @@ export const Login = () => {
             onPress={handleSubmit(onSubmit)}
           >
             <Text style={styles.googleBtnText}>
-              Login
+              Registrar-se
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.linkContainer}
-            onPress={() => navigation.navigate("Register" as never)}
+          <TouchableOpacity
+            style={styles.linkContainer}
+            onPress={() => navigation.navigate("Login" as never)}
           >
             <Text style={styles.link}>
-              Não tem uma conta?
+              Já tem uma conta?
             </Text>
           </TouchableOpacity>
         </View>

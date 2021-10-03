@@ -6,19 +6,21 @@ import { Expenses } from '../screens/Expenses';
 import { Login } from '../screens/Login';
 import { NewEarning } from '../screens/NewEarning';
 import { NewExpense } from '../screens/NewExpense';
+import { Register } from '../screens/Register';
 import { UpdateEarning } from '../screens/UpdateEarning';
 import { UpdateExpense } from '../screens/UpdateExpense';
 
 
 export type AppRouteType = {
   Login: undefined,
+  Register: undefined,
   Dashboard: undefined,
   Expenses: undefined,
   Earnings: undefined,
   NewEarning: undefined,
   NewExpense: undefined,
   UpdateEarning: undefined,
-  UpdateExpense: undefined
+  UpdateExpense: undefined,
 }
 
 const stack = createStackNavigator<AppRouteType>();
@@ -31,6 +33,7 @@ export const AppRoutes = () => {
         headerShown: false
       }}
     >
+      <stack.Screen name="Register" component={Register} />
       <stack.Screen name="Login" component={Login} />
       <stack.Screen name="Dashboard" component={DashBoard} />
       <stack.Screen name="Expenses" component={Expenses} />
