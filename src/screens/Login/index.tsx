@@ -1,15 +1,24 @@
-import React from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity, Alert} from 'react-native'
+import React, { useEffect } from 'react'
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid
+} from 'react-native'
+
 import { styles } from './styles'
 import { useNavigation } from '@react-navigation/native';
 import horizontalLogo from '../../../assets/horizontal_logo.png';
 import LoginImage from '../../../assets/loginImage.svg';
-import { supabase } from '../../config/supabase';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { theme } from '../../global/styles/theme';
 import { errorStyle } from '../../global/styles/error';
 import {Controller, useForm} from 'react-hook-form'
 import { EMAIL_REGEX } from '../../utils/regex';
+import firebase from '../../config/firebaseConfig';
+
 
 type LoginTypes = {
   email: string,
@@ -22,7 +31,29 @@ export const Login = () => {
     formState: {errors, isValid},
   } = useForm({mode: 'onBlur'})
 
-  const onSubmit = (data: LoginTypes) => console.log(data)
+  const loginUser = (data: LoginTypes) => {
+    firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+    .then((userCredential) => {
+      let user = userCredential.user
+      console.log('>>>>', user)
+      navigation.navigate("Dashboard" as never, {idUser: user?.uid} as never)
+    })
+    .catch((error) => {
+        ToastAndroid.show('Erro inesperado, verifique se suas credenciais estão corretas',
+        ToastAndroid.SHORT
+      );
+    })
+  }
+
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user){
+      if(user){
+        navigation.navigate("Dashboard" as never, {idUser: user?.uid} as never)
+      }
+    })
+  }, [])
+
 
   return (
     <KeyboardAwareScrollView>
@@ -97,8 +128,9 @@ export const Login = () => {
             {errors.password?.message}
           </Text>
           <TouchableOpacity style={styles.googleBtn}
+            disabled={!isValid}
             activeOpacity={0.7}
-            onPress={handleSubmit(onSubmit)}
+            onPress={handleSubmit(loginUser)}
           >
             <Text style={styles.googleBtnText}>
               Login

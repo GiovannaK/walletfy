@@ -22,12 +22,12 @@ export const styles = StyleSheet.create({
   svg: {
     maxWidth: 300,
     maxHeight: 120,
-    marginTop: 10,
+    marginTop: 30,
   },
   googleBtn: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 30,
     width: 320,
     backgroundColor: theme.colors.bg,
     height: 60,
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     color: '#ffffff',
   },
   linkContainer: {
-    marginTop: 10,
+    marginTop: 20,
   },
   link: {
     fontSize: 17,

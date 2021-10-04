@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid
+} from 'react-native'
 import { styles } from './styles'
 import { supabase } from '../../config/supabase';
 import LoginImage from '../../../assets/loginImage.svg';
@@ -10,9 +17,9 @@ import { errorStyle } from '../../global/styles/error';
 import {Controller, useForm} from 'react-hook-form'
 import { EMAIL_REGEX } from '../../utils/regex';
 import { useNavigation } from '@react-navigation/native';
+import firebase from '../../config/firebaseConfig';
 
-type LoginTypes = {
-  username: string,
+type RegisterTypes = {
   email: string,
   password: string,
 }
@@ -23,7 +30,19 @@ export const Register = () => {
     formState: {errors, isValid},
   } = useForm({mode: 'onBlur'})
 
-  const onSubmit = (data: LoginTypes) => console.log(data)
+  const createUser = (data: RegisterTypes) => {
+    firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+    .then((userCredential) => {
+      let user = userCredential.user
+      console.log('>>>>', user)
+      navigation.navigate("Dashboard" as never, {idUser: user?.uid} as never)
+    })
+    .catch((error) => {
+        ToastAndroid.show('Erro inesperado, verifique se todos os campos estão preenchidos',
+        ToastAndroid.SHORT
+      );
+    })
+  }
 
   return (
     <KeyboardAwareScrollView>
@@ -38,33 +57,6 @@ export const Register = () => {
 
         <View style={styles.border}>
           <LoginImage style={styles.svg}/>
-          <Controller
-            control={control}
-            name="username"
-            render={({field: {onChange, value, onBlur}}) => (
-              <TextInput
-                style={styles.input}
-                placeholder="Nome de usuário"
-                placeholderTextColor={theme.colors.primary}
-                value={value}
-                onBlur={onBlur}
-                onChangeText={value => onChange(value)}
-              />
-            )}
-            rules={{
-              required: {
-                value: true,
-                message: 'Nome de usuário não pode estar vazio'
-              },
-              maxLength: {
-                value: 200,
-                message: 'Nome de usuário ter até 200 caracteres'
-              }
-            }}
-          />
-          <Text style={errorStyle.formError}>
-            {errors.username?.message}
-          </Text>
           <Controller
             control={control}
             name="email"
@@ -125,11 +117,12 @@ export const Register = () => {
             {errors.password?.message}
           </Text>
           <TouchableOpacity style={styles.googleBtn}
+            disabled={!isValid}
             activeOpacity={0.7}
-            onPress={handleSubmit(onSubmit)}
+            onPress={handleSubmit(createUser)}
           >
             <Text style={styles.googleBtnText}>
-              Registrar-se
+              Registre-se
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
