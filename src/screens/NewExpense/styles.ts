@@ -6,11 +6,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: theme.colors.bg
+    backgroundColor: theme.colors.bg,
   },
   form: {
     marginTop: 10,
-    width: '100%'
+    width: '100%',
   },
   input: {
     width:"90%",
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   checkWrapper: {
     flexDirection: 'row',
     marginLeft: 25,
-    marginTop: 30,
+    marginTop: 60,
     alignItems: 'center',
     marginRight: 20,
     justifyContent: 'space-between'
@@ -83,6 +83,7 @@ export const styles = StyleSheet.create({
     marginRight: 'auto',
     height: 50,
     width: 300,
+    marginBottom: 60,
     backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
@@ -93,5 +94,11 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textTransform: 'uppercase'
+  },
+  error: {
+    color: theme.colors.expenses,
+    marginTop: 10,
+    marginLeft:"auto",
+    marginRight:"auto",
   }
 })

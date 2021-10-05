@@ -5,89 +5,132 @@ import { styles } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from 'date-fns'
-import {Picker} from '@react-native-picker/picker';
-import { categories } from '../../utils/categories';
 import Checkbox from 'expo-checkbox';
 import { theme } from '../../global/styles/theme';
+import {Controller, useForm} from 'react-hook-form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { AMOUNT_REGEX, DATE_REGEX } from '../../utils/regex';
+
+type ExpensesType = {
+  title: string,
+  date: string,
+  amount: string,
+  isMonthly: boolean
+}
 
 export const NewExpense = () => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [dateInput, setDateInput] = useState('')
-  const [isMonthly, setIsMonthly] = useState(false)
+  const {handleSubmit, control,
+    formState: {errors, isValid},
+  } = useForm({mode: 'onBlur'})
 
-  const [category, setCategory] = useState()
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date: any) => {
-    const formattedDate = format(date, 'dd/MM/yyyy')
-    setDateInput(formattedDate)
-    hideDatePicker();
-  };
+  const onSubmit = (data: ExpensesType) => {
+    console.log(data)
+  }
 
   return (
-    <View style={styles.container}>
-      <FormHeader title="Novo Gasto"/>
-      <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          placeholder="Título..."
-          placeholderTextColor="#989898"
-        />
-        <TextInput
-          style={styles.input}
-          keyboardType="numeric"
-          placeholder="Valor - EX: 300.00"
-          placeholderTextColor="#989898"
-        />
-        <View style={styles.dateContainer}>
-          <TextInput
-            style={styles.inputDate}
-            placeholder="Data - DD/MM/YYYY"
-            placeholderTextColor="#989898"
-            value={dateInput}
+    <KeyboardAwareScrollView>
+      <View style={styles.container}>
+        <FormHeader title="Novo Gasto"/>
+        <View style={styles.form}>
+          <Controller
+            control={control}
+            name="title"
+            render={({field: {onChange, value, onBlur}}) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Título"
+                placeholderTextColor={theme.colors.primary}
+                value={value}
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+              />
+            )}
+            rules={{
+              required: {
+                value: true,
+                message: 'Título não pode estar vazio'
+              },
+            }}
           />
-          <TouchableOpacity style={styles.iconWrapper} onPress={showDatePicker}>
-            <FontAwesome name="calendar" size={40} style={styles.icon}/>
+          <Text style={styles.error}>{errors.title?.message}</Text>
+          <Controller
+            control={control}
+            name="amount"
+            render={({field: {onChange, value, onBlur}}) => (
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder="Valor: Ex 300.00"
+                placeholderTextColor={theme.colors.primary}
+                value={value}
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+              />
+            )}
+            rules={{
+              required: {
+                value: true,
+                message: 'Valor não pode estar vazio'
+              },
+              pattern: {
+                value: AMOUNT_REGEX,
+                message: 'Valor inválido'
+              }
+            }}
+          />
+          <Text style={styles.error}>{errors.amount?.message}</Text>
+          <View style={styles.dateContainer}>
+            <Controller
+              control={control}
+              name="date"
+              render={({field: {onChange, value, onBlur}}) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder="Data: DD/MM/YYYY"
+                  placeholderTextColor={theme.colors.primary}
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={value => onChange(value)}
+                />
+              )}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'Data não pode estar vazia'
+                },
+                pattern: {
+                  value: DATE_REGEX,
+                  message: 'Data inválida'
+                }
+              }}
+            />
+          </View>
+          <Text style={styles.error}>{errors.date?.message}</Text>
+          <View style={styles.checkWrapper}>
+            <Text style={styles.checkLabel}>Gasto Mensal</Text>
+            <Controller
+            control={control}
+            name="isMonthly"
+            render={({field: {onChange, value}}) => (
+              <Checkbox
+                style={styles.checkbox}
+                value={value}
+                onValueChange={value => onChange(value)}
+                color={theme.colors.primary}
+              />
+            )}
+          />
+          </View>
+          <Text style={styles.error}>{errors.isMonthly?.message}</Text>
+          <TouchableOpacity
+            style={styles.saveButton}
+            activeOpacity={0.7}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.saveButtonText}>Salvar</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.category}>Selecione uma categoria</Text>
-        <Picker
-          style={styles.select}
-          selectedValue={category}
-          onValueChange={(itemValue) =>
-            setCategory(itemValue)
-          }>
-          {
-            categories.map((cat) => {
-              return <Picker.Item key={cat.id} label={cat.name} value={cat.id} />
-            })
-          }
-        </Picker>
-        <View style={styles.checkWrapper}>
-          <Text style={styles.checkLabel}>Gasto Mensal</Text>
-          <Checkbox
-            style={styles.checkbox}
-            value={isMonthly}
-            onValueChange={setIsMonthly}
-            color={theme.colors.primary}
-          />
-        </View>
-        <TouchableOpacity style={styles.saveButton} activeOpacity={0.7}>
-          <Text style={styles.saveButtonText}>Salvar</Text>
-        </TouchableOpacity>
       </View>
-      <DateTimePickerModal
-        onConfirm={handleConfirm}
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onCancel={hideDatePicker}
-      />
-    </View>
+    </KeyboardAwareScrollView>
   )
 }
