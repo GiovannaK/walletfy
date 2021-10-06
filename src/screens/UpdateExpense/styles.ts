@@ -6,15 +6,15 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: theme.colors.bg
+    backgroundColor: theme.colors.bg,
   },
   form: {
     marginTop: 10,
-    width: '100%'
+    width: '100%',
   },
   input: {
     width:"90%",
-    marginTop:25,
+    marginTop:30,
     padding:10,
     height:50,
     borderBottomWidth: 1,
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
   },
   inputDate: {
     width:"70%",
-    marginTop:25,
+    marginTop:30,
     padding:10,
     height:50,
     borderBottomWidth: 1,
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   },
   category: {
     color: '#989898',
-    marginTop: 30,
+    marginTop: 40,
     marginLeft: 25,
     fontSize: 18,
   },
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   checkWrapper: {
     flexDirection: 'row',
     marginLeft: 25,
-    marginTop: 20,
+    marginTop: 60,
     alignItems: 'center',
     marginRight: 20,
     justifyContent: 'space-between'
@@ -78,11 +78,12 @@ export const styles = StyleSheet.create({
     transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
   },
   saveButton: {
-    marginTop: 25,
+    marginTop: 40,
     marginLeft: 'auto',
     marginRight: 'auto',
     height: 50,
     width: 300,
+    marginBottom: 60,
     backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
@@ -94,13 +95,19 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase'
   },
+  error: {
+    color: theme.colors.expenses,
+    marginTop: 10,
+    marginLeft:"auto",
+    marginRight:"auto",
+  },
   delete: {
     position: 'absolute',
     width: 60,
     height: 60,
     bottom: 25,
     right: 20,
-    backgroundColor: '#f92e6a',
+    backgroundColor: theme.colors.expenses,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center"

@@ -13,9 +13,11 @@ export const Expenses = () => {
   const database = firebase.firestore();
   const navigation = useNavigation();
   const route = useRoute()
+  const userId = route.params?.idUser
   const [expenses, setExpenses] = useState<any[]>([])
 
-  const q = database.collection('Expense').where('userId', '==', route.params?.idUser)
+  const q = database.collection('Expense').where('userId', '==', userId)
+  console.log(userId)
 
   useEffect(() => {
     q.onSnapshot((query) => {

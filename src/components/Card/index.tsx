@@ -27,7 +27,16 @@ export const Card = ({color, item}: Props) => {
           {item.isMonthly && (
             <Text style={styles.month}>Mensal</Text>
           )}
-          <TouchableOpacity onPress={() => navigation.navigate("UpdateExpense" as never)}>
+          <TouchableOpacity onPress={() => navigation.navigate(
+            "UpdateExpense" as never,
+            {title:
+              item.title,
+              date: item.date.seconds,
+              isMonthly: item.isMonthly,
+              amount: item.amount,
+              id: item.id, userId:
+              item.userId} as never
+            )}>
             <FontAwesome name="edit" size={40} style={styles.icon}/>
           </TouchableOpacity>
         </View>

@@ -38,7 +38,7 @@ export const NewExpense = () => {
       isMonthly: data.isMonthly || false,
       userId: route.params?.idUser.idUser
     })
-    navigation.navigate("Expenses" as never)
+    navigation.navigate("Expenses" as never, {idUser: route.params?.idUser.idUser})
       ToastAndroid.show('Gasto adicionado com sucesso!',
       ToastAndroid.SHORT
     );
