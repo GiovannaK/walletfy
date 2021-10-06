@@ -4,7 +4,11 @@ import { categories } from '../../utils/categories';
 import { Category } from '../Category';
 import {styles} from './styles';
 
-export const TopBar = () => {
+type Props = {
+  route: any
+}
+
+export const TopBar = ({route}: Props) => {
   return (
     <ScrollView
       style={styles.container}
@@ -12,7 +16,7 @@ export const TopBar = () => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{paddingRight: 20}}
     >
-      <Category />
+      <Category route={route}/>
     </ScrollView>
   )
 }

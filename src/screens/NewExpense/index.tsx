@@ -1,30 +1,45 @@
-import React, {useState} from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 import { FormHeader } from '../../components/formHeader';
 import { styles } from './styles';
-import { FontAwesome } from '@expo/vector-icons';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { format } from 'date-fns'
+import firebase from '../../config/firebaseConfig';
+import { format, parse } from 'date-fns'
 import Checkbox from 'expo-checkbox';
 import { theme } from '../../global/styles/theme';
 import {Controller, useForm} from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AMOUNT_REGEX, DATE_REGEX } from '../../utils/regex';
+import { useRoute } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 
 type ExpensesType = {
   title: string,
   date: string,
   amount: string,
-  isMonthly: boolean
+  isMonthly: boolean,
+  userId: string | undefined,
 }
 
 export const NewExpense = () => {
+  const database = firebase.firestore();
+  const route = useRoute()
+  const navigation = useNavigation();
+
   const {handleSubmit, control,
     formState: {errors, isValid},
   } = useForm({mode: 'onBlur'})
 
   const onSubmit = (data: ExpensesType) => {
-    console.log(data)
+    const formattedDate = parse(data.date, 'MM/dd/yyyy', new Date())
+    console.log('>>>>', formattedDate)
+    database.collection('Expense').add({
+      title: data.title,
+      amount: Number(data.amount),
+      date: formattedDate,
+      isMonthly: data.isMonthly,
+      userId: route.params?.idUser.idUser
+    })
+    navigation.navigate("Expenses" as never)
   }
 
   return (

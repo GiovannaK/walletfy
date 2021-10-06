@@ -7,9 +7,13 @@ import { Card } from '../../components/Card';
 import { theme } from '../../global/styles/theme';
 import { expenses } from '../../utils/expenses';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/core';
 
 export const Expenses = () => {
   const navigation = useNavigation();
+  const route = useRoute()
+
+  console.log('.....', route)
   return (
     <View style={styles.container}>
       <Header />
@@ -32,9 +36,11 @@ export const Expenses = () => {
         data={expenses}
         renderItem={({item}) => <Card color={theme.colors.expenses}/>}
       />
-      <TouchableOpacity style={styles.delete} onPress={() => navigation.navigate("NewExpense" as never)}>
-        <FontAwesome name="plus" style={styles.iconButton} size={40}/>
-      </TouchableOpacity>
+      {route.params && (
+        <TouchableOpacity style={styles.delete} onPress={() => navigation.navigate("NewExpense" as never, {idUser: route.params} as never)}>
+          <FontAwesome name="plus" style={styles.iconButton} size={40}/>
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
