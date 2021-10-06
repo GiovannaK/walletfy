@@ -1,24 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from '../../components/Header'
 import { styles } from './styles'
 import { FontAwesome } from '@expo/vector-icons';
 import { Card } from '../../components/Card';
 import { theme } from '../../global/styles/theme';
-import { expenses } from '../../utils/expenses';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/core';
+import firebase from '../../config/firebaseConfig';
 
 export const Expenses = () => {
+  const database = firebase.firestore();
   const navigation = useNavigation();
   const route = useRoute()
+  const [expenses, setExpenses] = useState<any[]>([])
 
-  console.log('.....', route)
+  const q = database.collection('Expense').where('userId', '==', route.params?.idUser)
+
+  useEffect(() => {
+    q.onSnapshot((query) => {
+      const list = [] as any[]
+      query.forEach((doc) => {
+        list.push({...doc.data(), id: doc.id})
+      })
+      setExpenses(list)
+    })
+  }, [])
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.titleSection}>
-        <FontAwesome name="filter" size={50} style={styles.icon}/>
         <Text style={styles.title}>Meus Gastos</Text>
       </View>
       <View style={styles.panelContainer}>
@@ -34,7 +46,9 @@ export const Expenses = () => {
       <FlatList
         keyExtractor={(index: any, item: any) => item.id}
         data={expenses}
-        renderItem={({item}) => <Card color={theme.colors.expenses}/>}
+        renderItem={({item}) => <Card color={theme.colors.expenses}
+          item={item} key={item.id}
+        />}
       />
       {route.params && (
         <TouchableOpacity style={styles.delete} onPress={() => navigation.navigate("NewExpense" as never, {idUser: route.params} as never)}>

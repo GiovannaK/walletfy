@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { Text, View, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
 import { FormHeader } from '../../components/formHeader';
 import { styles } from './styles';
 import firebase from '../../config/firebaseConfig';
-import { format, parse } from 'date-fns'
+import { parse } from 'date-fns'
 import Checkbox from 'expo-checkbox';
 import { theme } from '../../global/styles/theme';
 import {Controller, useForm} from 'react-hook-form';
@@ -31,15 +31,17 @@ export const NewExpense = () => {
 
   const onSubmit = (data: ExpensesType) => {
     const formattedDate = parse(data.date, 'MM/dd/yyyy', new Date())
-    console.log('>>>>', formattedDate)
     database.collection('Expense').add({
       title: data.title,
       amount: Number(data.amount),
       date: formattedDate,
-      isMonthly: data.isMonthly,
+      isMonthly: data.isMonthly || false,
       userId: route.params?.idUser.idUser
     })
     navigation.navigate("Expenses" as never)
+      ToastAndroid.show('Gasto adicionado com sucesso!',
+      ToastAndroid.SHORT
+    );
   }
 
   return (
@@ -140,6 +142,7 @@ export const NewExpense = () => {
           <TouchableOpacity
             style={styles.saveButton}
             activeOpacity={0.7}
+            disabled={!isValid}
             onPress={handleSubmit(onSubmit)}
           >
             <Text style={styles.saveButtonText}>Salvar</Text>
