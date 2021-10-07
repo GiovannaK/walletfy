@@ -9,6 +9,7 @@ import { theme } from '../../global/styles/theme';
 import {Controller, useForm} from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AMOUNT_REGEX, DATE_REGEX } from '../../utils/regex';
+import moment from 'moment';
 import { useRoute } from '@react-navigation/core';
 import { useNavigation } from '@react-navigation/native';
 
@@ -18,6 +19,8 @@ type ExpensesType = {
   amount: string,
   isMonthly: boolean,
   userId: string | undefined,
+  month: number,
+  year: number,
 }
 
 export const NewExpense = () => {
@@ -30,13 +33,18 @@ export const NewExpense = () => {
   } = useForm({mode: 'onBlur'})
 
   const onSubmit = (data: ExpensesType) => {
+    const getMonth = moment(data.date, 'DD/MM/YYYY').format('M')
+    const getYear = Number(moment(data.date, 'DD/MM/YYYY').format('Y'))
+    const removeZeroBeforeNumber = parseInt(getMonth, 10)
     const formattedDate = parse(data.date, 'MM/dd/yyyy', new Date())
     database.collection('Expense').add({
       title: data.title,
       amount: Number(data.amount),
       date: formattedDate,
       isMonthly: data.isMonthly || false,
-      userId: route.params?.idUser.idUser
+      userId: route.params?.idUser.idUser,
+      month: removeZeroBeforeNumber,
+      year: getYear,
     })
     navigation.navigate("Expenses" as never, {idUser: route.params?.idUser.idUser})
       ToastAndroid.show('Gasto adicionado com sucesso!',
