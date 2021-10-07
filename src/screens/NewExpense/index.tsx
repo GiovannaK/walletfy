@@ -36,7 +36,7 @@ export const NewExpense = () => {
     const getMonth = moment(data.date, 'DD/MM/YYYY').format('M')
     const getYear = Number(moment(data.date, 'DD/MM/YYYY').format('Y'))
     const removeZeroBeforeNumber = parseInt(getMonth, 10)
-    const formattedDate = parse(data.date, 'MM/dd/yyyy', new Date())
+    const formattedDate = parse(data.date, 'dd/MM/yyyy', new Date())
     database.collection('Expense').add({
       title: data.title,
       amount: Number(data.amount),

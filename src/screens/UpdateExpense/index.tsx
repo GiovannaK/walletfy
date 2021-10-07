@@ -20,6 +20,8 @@ type ExpensesType = {
   amount: string,
   isMonthly: boolean,
   userId: string | undefined,
+  month: number,
+  year: number
 }
 
 export const UpdateExpense = () => {
@@ -47,12 +49,17 @@ export const UpdateExpense = () => {
   }
 
   const onSubmit = (data: ExpensesType) => {
-    const formattedDate = parse(data.date, 'MM/dd/yyyy', new Date())
+    const getMonth = moment(data.date, 'DD/MM/YYYY').format('M')
+    const getYear = Number(moment(data.date, 'DD/MM/YYYY').format('Y'))
+    const removeZeroBeforeNumber = parseInt(getMonth, 10)
+    const formattedDate = parse(data.date, 'dd/MM/yyyy', new Date())
     database.collection('Expense').doc(idExpense).update({
       title: data.title,
       amount: Number(data.amount),
       date: formattedDate,
       isMonthly: data.isMonthly || false,
+      month: removeZeroBeforeNumber,
+      year: getYear
     })
       ToastAndroid.show('Gasto atualizado com sucesso!',
       ToastAndroid.SHORT

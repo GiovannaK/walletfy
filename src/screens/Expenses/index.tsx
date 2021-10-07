@@ -17,7 +17,6 @@ export const Expenses = () => {
   const [expenses, setExpenses] = useState<any[]>([])
 
   const q = database.collection('Expense').where('userId', '==', userId)
-  console.log(userId)
 
   useEffect(() => {
     q.onSnapshot((query) => {
