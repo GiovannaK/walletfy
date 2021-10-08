@@ -42,13 +42,13 @@ export const styles = StyleSheet.create({
   panelTitle: {
     color: theme.colors.primary,
     marginTop: 20,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   panelInfo: {
     color: theme.colors.primary,
     marginTop: 20,
-    fontSize: 18
+    fontSize: 16
   },
   delete: {
     position: 'absolute',

@@ -25,14 +25,14 @@ export const styles = StyleSheet.create({
   },
   title: {
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     flexBasis: '33.3%'
   },
   date: {
     color: '#989898',
-    flexBasis: '40%',
-    fontSize: 18
+    flexBasis: '33%',
+    fontSize: 14
   },
   category: {
     marginTop: 10,
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     color: '#989898',
     flexBasis: '38%',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   icon: {

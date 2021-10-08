@@ -21,9 +21,9 @@ export const CardEarning = ({color, item}: Props) => {
           <Text style={styles.date}>{moment.unix(item.date.seconds).format('DD/MM/YYYY')}</Text>
           <Text style={{
             color: color,
-            fontSize: 18,
+            fontSize: 14,
             fontWeight: 'bold'
-          }}>R$ {item.amount}</Text>
+          }}>R$ {item.amount.toFixed(2)}</Text>
           {item.isMonthly && (
             <Text style={styles.month}>Mensal</Text>
           )}
@@ -37,7 +37,7 @@ export const CardEarning = ({color, item}: Props) => {
               id: item.id, userId:
               item.userId} as never
             )}>
-            <FontAwesome name="edit" size={40} style={styles.icon}/>
+            <FontAwesome name="edit" size={36} style={styles.icon}/>
           </TouchableOpacity>
         </View>
       </View>
