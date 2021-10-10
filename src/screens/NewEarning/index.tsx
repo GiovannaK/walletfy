@@ -21,6 +21,7 @@ type ExpensesType = {
   userId: string | undefined,
   month: number,
   year: number,
+  key: number
 }
 
 export const NewEarning = () => {
@@ -44,6 +45,7 @@ export const NewEarning = () => {
       isMonthly: data.isMonthly || false,
       userId: route.params?.idUser.idUser,
       month: removeZeroBeforeNumber,
+      key: removeZeroBeforeNumber,
       year: getYear,
     })
     navigation.navigate("Earnings" as never, {idUser: route.params?.idUser.idUser})

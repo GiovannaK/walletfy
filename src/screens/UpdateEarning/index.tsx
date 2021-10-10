@@ -21,7 +21,8 @@ type ExpensesType = {
   isMonthly: boolean,
   userId: string | undefined,
   month: number,
-  year: number
+  year: number,
+  key: number
 }
 
 export const UpdateEarning = () => {
@@ -59,6 +60,7 @@ export const UpdateEarning = () => {
       date: formattedDate,
       isMonthly: data.isMonthly || false,
       month: removeZeroBeforeNumber,
+      key: removeZeroBeforeNumber,
       year: getYear
     })
       ToastAndroid.show('Ganho atualizado com sucesso!',

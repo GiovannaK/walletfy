@@ -42,14 +42,6 @@ export const Category = ({route}: Props) => {
           />
           <Text style={styles.text}>Ganhos</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.card} activeOpacity={0.7}>
-          <Image
-            source={Report}
-            style={styles.image}
-            resizeMode="stretch"
-          />
-          <Text style={styles.text}>Relatórios</Text>
-        </TouchableOpacity>
         </>
       )}
     </View>

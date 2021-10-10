@@ -21,6 +21,7 @@ type ExpensesType = {
   userId: string | undefined,
   month: number,
   year: number,
+  key: number,
 }
 
 export const NewExpense = () => {
@@ -35,8 +36,10 @@ export const NewExpense = () => {
   const onSubmit = (data: ExpensesType) => {
     const getMonth = moment(data.date, 'DD/MM/YYYY').format('M')
     const getYear = Number(moment(data.date, 'DD/MM/YYYY').format('Y'))
+    const getWeek = Number(moment(data.date, 'DD/MM/YYYY').isoWeek())
     const removeZeroBeforeNumber = parseInt(getMonth, 10)
     const formattedDate = parse(data.date, 'dd/MM/yyyy', new Date())
+    console.log(getWeek)
     database.collection('Expense').add({
       title: data.title,
       amount: Number(data.amount),
@@ -44,6 +47,7 @@ export const NewExpense = () => {
       isMonthly: data.isMonthly || false,
       userId: route.params?.idUser.idUser,
       month: removeZeroBeforeNumber,
+      key: removeZeroBeforeNumber,
       year: getYear,
     })
     navigation.navigate("Expenses" as never, {idUser: route.params?.idUser.idUser})
